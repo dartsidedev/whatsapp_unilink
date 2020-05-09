@@ -2,7 +2,7 @@ name: whatsapp_unilink
 description: Dart package helping your app interact with WhatsApp via HTTP links (universal links). Works with Flutter.
 homepage: https://github.com/dartsidedev/whatsapp_unilink
 issue_tracker: https://github.com/dartsidedev/whatsapp_unilink/issues
-version: 1.0.0
+version: 1.0.0+1
 environment:
   sdk: '>=2.7.0 <3.0.0'
 dev_dependencies:
