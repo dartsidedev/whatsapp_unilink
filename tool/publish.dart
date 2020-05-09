@@ -18,5 +18,4 @@ Future<void> main() async {
   // git tag
 
   // git push the tags
-
 }

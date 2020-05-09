@@ -1,0 +1,86 @@
+name: Continuous Integration
+
+on: [push, pull_request]
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    container:
+      image:  google/dart:beta
+    steps:
+      - uses: actions/checkout@v2
+      - name: Ensure idiomatic Dart source code formatting
+        run: dartfmt --set-exit-if-changed .
+
+  test-linux:
+    runs-on: ubuntu-latest
+    container:
+      image:  google/dart:beta
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get the package's dependencies
+        run: pub get
+      - name: Run tests in the package
+        run: pub run test
+
+  test-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Tap Google's Dart formula repository
+        run: brew tap dart-lang/dart
+      - name: Install the Dart formula
+        run: brew install dart
+      - name: Get the package's dependencies
+        run: pub get
+      - name: Run tests in the package
+        run: pub run test
+
+  test-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install the Dart SDK with Chocolatey
+        run: choco install dart-sdk
+      - name: Get the package's dependencies
+        run: C:\tools\dart-sdk\bin\pub.bat get
+      - name: Run tests in the package
+        run: C:\tools\dart-sdk\bin\pub.bat run test
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [format, test-linux, test-macos, test-windows]
+    if: github.ref == 'refs/heads/master'
+    continue-on-error: true
+    container:
+      image:  google/dart:beta
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup credentials
+        run: |
+          mkdir -p ~/.pub-cache
+          echo ${{ secrets.PUB_CREDENTIALS }} > ~/.pub-cache/credentials.json
+      - name: Publish the package to pub.dartlang.org
+        run: pub publish --force
+      - name: Delete credentials
+        run: rm ~/.pub-cache/credentials.json
+
+  coverage:
+    runs-on: ubuntu-latest
+    needs: publish
+    if: github.ref == 'refs/heads/master'
+    container:
+      image:  google/dart:beta
+    steps:
+      - uses: actions/checkout@v1
+      - name: Get the package's dependencies
+        run: pub get
+      - name: Collect coverage
+        run: |
+          pub global activate test_coverage
+          pub global run test_coverage
+      - uses: codecov/codecov-action@v1.0.0
+        with:
+          flags: unittests
+          file: coverage/lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}

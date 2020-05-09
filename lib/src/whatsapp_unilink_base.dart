@@ -23,8 +23,8 @@ class WhatsAppUnilink {
   /// as a URI component.
   final String text;
 
-  @override
   /// Create a WhatsApp URL link.
+  @override
   String toString() {
     final sb = StringBuffer('https://wa.me/');
     if (phoneNumber != null) {

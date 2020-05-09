@@ -8,6 +8,8 @@ The `whatsapp_unilink` package helps you build HTTP links and provides you with 
 * hides the encoding and link building details from you so that you can focus on your app 🚀
 * is blazingly fast ⚡️
 
+[![Continuous Integration](https://github.com/dartsidedev/whatsapp_unilink/workflows/Continuous%20Integration/badge.svg?branch=master)](https://github.com/dartsidedev/whatsapp_unilink/actions) [![codecov](https://codecov.io/gh/dartsidedev/whatsapp_unilink/branch/master/graph/badge.svg)](https://codecov.io/gh/dartsidedev/whatsapp_unilink) [![whatsapp_unilink](https://img.shields.io/pub/v/whatsapp_unilink?label=whatsapp_unilink&logo=dart)](https://pub.dev/packages/whatsapp_unilink 'See whatsapp_unilink package info on pub.dev') [![Published by dartside.dev](https://img.shields.io/static/v1?label=Published%20by&message=dartside.dev&logo=dart&logoWidth=30&color=40C4FF&labelColor=1d599b&labelWidth=100)](https://pub.dev/publishers/dartside.dev/packages) [![GitHub Stars Count](https://img.shields.io/github/stars/dartsidedev/whatsapp_unilink?logo=github)](https://github.com/dartsidedev/whatsapp_unilink 'Star me on GitHub!')
+
 ## Important links
 
 * [Read the source code and **star the repo!** on GitHub](https://github.com/dartsidedev/whatsapp_unilink)
