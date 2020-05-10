@@ -5,6 +5,7 @@ on: [push, pull_request]
 jobs:
   format:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     container:
       image:  google/dart:beta
     steps:
@@ -14,6 +15,7 @@ jobs:
 
   test-ubuntu:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     container:
       image:  google/dart:beta
     steps:
@@ -25,6 +27,7 @@ jobs:
 
   test-macos:
     runs-on: macos-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v2
       - name: Tap Google's Dart formula repository
@@ -38,6 +41,7 @@ jobs:
 
   test-windows:
     runs-on: windows-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v2
       - name: Install the Dart SDK with Chocolatey
@@ -49,6 +53,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs: [format, test-ubuntu, test-macos, test-windows]
     if: github.ref == 'refs/heads/master'
     continue-on-error: true
@@ -67,6 +72,7 @@ jobs:
 
   coverage:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs: publish
     if: github.ref == 'refs/heads/master'
     container:
