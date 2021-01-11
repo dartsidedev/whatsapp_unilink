@@ -21,7 +21,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Ensure no analysis errors
-        run: dart analyze --fatal-infos --fatal-warnings lib test
+        run: |
+          dart analyze --fatal-infos --fatal-warnings lib
+          dart analyze --fatal-infos --fatal-warnings test
 
   test-ubuntu:
     runs-on: ubuntu-latest
@@ -57,7 +59,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    needs: [format, test-ubuntu, example-dart]
+    needs: [format, analyze, test-ubuntu, example-dart]
     if: github.ref == 'refs/heads/master'
     continue-on-error: true
     container:
