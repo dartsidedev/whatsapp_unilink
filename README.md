@@ -29,9 +29,12 @@ By clicking the link, a chat with the person automatically opens.
 WhatsApp will include your message in `text` and it will automatically appear in the text field of a chat.
 
 Both the `phoneNumber` and `text` arguments are optional.
-The `phoneNumber` string will be internally converted to a format that the WhatsApp API expect: any brackets, dashes, plus signs, and leading zeros or any other non-digit characters will be removed.
 The `text` is encoded using percent-encoding to make it safe for literal use as a URI component.
 The `WhatsAppUnilink` instance, whenever converted to a string, will create a WhatsApp link for you.
+
+When `WhatsAppUnilink` instance is converted to a string, any brackets, dashes, plus signs, and leading zeros or any other non-digit characters will be removed from the phone number.
+
+*Important*: the `whatsapp_unilink` package does not convert from the local phone numbers format to the international format based on the device's locale.
 
 ### Flutter
 

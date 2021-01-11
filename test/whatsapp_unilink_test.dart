@@ -1,6 +1,10 @@
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 import 'package:test/test.dart';
 
+// Examples from:
+// https://faq.whatsapp.com/en/android/26000030
+// https://faq.whatsapp.com/en/iphone/23559013
+
 void main() {
   group('$WhatsAppUnilink', () {
     group('toString()', () {

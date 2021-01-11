@@ -5,14 +5,17 @@ class WhatsAppUnilink {
   /// Creates a [WhatsAppUnilink] instance.
   ///
   /// Call the [toString] method to get the WhatsApp URL.
-  const WhatsAppUnilink({this.phoneNumber, this.text});
+  const WhatsAppUnilink({
+    this.phoneNumber,
+    this.text,
+  });
 
   /// Destination phone number.
   ///
   /// The [phoneNumber] string will be internally converted to a format that the
   /// WhatsApp API expect: any brackets, dashes, plus signs, and leading zeros
   /// or any other non-digit characters will be removed.
-  final String phoneNumber;
+  final String? phoneNumber;
 
   /// The message to the user.
   ///
@@ -21,7 +24,7 @@ class WhatsAppUnilink {
   ///
   /// [text] is encoded using percent-encoding to make it safe for literal use
   /// as a URI component.
-  final String text;
+  final String? text;
 
   /// Create a WhatsApp URL link.
   @override
@@ -29,12 +32,12 @@ class WhatsAppUnilink {
     final sb = StringBuffer('https://wa.me/');
     if (phoneNumber != null) {
       // Keep only the numbers and remove any leading zeros
-      sb.write(phoneNumber
+      sb.write(phoneNumber!
           .replaceAll(RegExp(r'\D'), '')
           .replaceAll(RegExp('^0+'), ''));
     }
     if (text != null) {
-      sb..write('?text=')..write(Uri.encodeComponent(text));
+      sb..write('?text=')..write(Uri.encodeComponent(text!));
     }
     return sb.toString();
   }
