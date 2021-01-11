@@ -45,12 +45,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Verify example formatted correctly
-        run: |
-          cd example/dart
-          dartfmt --set-exit-if-changed .
+        working-directory: ./example/dart
+        run: dartfmt --set-exit-if-changed .
       - name: Verify example has no analysis errors
+        working-directory: ./example/dart
         run: dart analyze --fatal-infos --fatal-warnings .
       - name: Verify example compiles correctly
+        working-directory: ./example/dart
         run: dart compile aot-snapshot whatsapp_unilink_example.dart
 
   # We also have a Flutter example, that's currently not verified
