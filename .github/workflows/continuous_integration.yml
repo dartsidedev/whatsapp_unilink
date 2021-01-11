@@ -61,7 +61,9 @@ jobs:
     timeout-minutes: 5
     needs: [format, analyze, test-ubuntu, example-dart]
     if: github.ref == 'refs/heads/master'
-    continue-on-error: true
+    # Continue on error doesn't seem to work?
+    # Using || true for publishing
+    # continue-on-error: true
     container:
       image:  google/dart:beta
     steps:
@@ -71,7 +73,7 @@ jobs:
           mkdir -p ~/.pub-cache
           echo ${{ secrets.PUB_CREDENTIALS_JSON }} > ~/.pub-cache/credentials.json
       - name: Publish the package to pub.dartlang.org
-        run: pub publish --force
+        run: pub publish --force || true
       - name: Delete credentials
         run: rm ~/.pub-cache/credentials.json
 
