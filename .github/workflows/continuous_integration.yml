@@ -35,10 +35,29 @@ jobs:
       - name: Run tests in the package
         run: pub run test
 
+  example-dart:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    container:
+      image:  google/dart:beta
+    steps:
+      - uses: actions/checkout@v2
+      - name: Verify example formatted correctly
+        run: |
+          cd example/dart
+          dartfmt --set-exit-if-changed .
+      - name: Verify example has no analysis errors
+        run: dart analyze --fatal-infos --fatal-warnings .
+      - name: Verify example compiles correctly
+        run: dart compile aot-snapshot whatsapp_unilink_example.dart
+
+  # We also have a Flutter example, that's currently not verified
+  # as part of the CI process.
+
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    needs: [format, test-ubuntu]
+    needs: [format, test-ubuntu, example-dart]
     if: github.ref == 'refs/heads/master'
     continue-on-error: true
     container:
