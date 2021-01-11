@@ -25,36 +25,10 @@ jobs:
       - name: Run tests in the package
         run: pub run test
 
-  test-macos:
-    runs-on: macos-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v2
-      - name: Tap Google's Dart formula repository
-        run: brew tap dart-lang/dart
-      - name: Install the Dart formula
-        run: brew install dart
-      - name: Get the package's dependencies
-        run: pub get
-      - name: Run tests in the package
-        run: pub run test
-
-  test-windows:
-    runs-on: windows-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install the Dart SDK with Chocolatey
-        run: choco install dart-sdk
-      - name: Get the package's dependencies
-        run: C:\tools\dart-sdk\bin\pub.bat get
-      - name: Run tests in the package
-        run: C:\tools\dart-sdk\bin\pub.bat run test
-
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    needs: [format, test-ubuntu, test-macos, test-windows]
+    needs: [format, test-ubuntu]
     if: github.ref == 'refs/heads/master'
     continue-on-error: true
     container:
