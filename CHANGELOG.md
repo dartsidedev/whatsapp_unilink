@@ -1,4 +1,4 @@
-## 2.0.0-nullsafety.0
+## 2.0.0
 
 * Migrate package to Dart's null safety language feature, requiring Dart 2.12 or higher.
 

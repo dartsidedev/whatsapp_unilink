@@ -1,0 +1,23 @@
+get: pub get
+format: dartfmt -w --set-exit-if-changed .
+analyze: dart analyze --fatal-infos --fatal-warnings .
+test: dart test
+test-coverage:
+  - pub global activate test_coverage
+  - pub global run test_coverage
+  - genhtml coverage/lcov.info -o coverage/html
+example:
+  - cd example/dart && dartfmt -w --set-exit-if-changed .
+  - cd example/dart && dart analyze --fatal-infos --fatal-warnings .
+  - cd example/dart && dart compile aot-snapshot whatsapp_unilink_example.dart
+publish-dry-run:
+  - pub publish --dry-run
+# Verify everything
+check:
+  - $get
+  - $format
+  - $analyze
+  - $test
+  - $example
+  - $test-coverage
+  - $publish-dry-run
