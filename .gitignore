@@ -12,5 +12,6 @@ doc/api/
 coverage/
 test/.test_coverage.dart
 coverage_badge.svg
-# Example aot
+# Example aot, executable
 example/dart/whatsapp_unilink_example.aot
+example/dart/whatsapp_unilink_example

@@ -14,8 +14,10 @@ The `whatsapp_unilink` package helps you build HTTP links and provides you with 
 
 * [Read the source code and **star the repo** on GitHub](https://github.com/dartsidedev/whatsapp_unilink)
 * [Open an issue on GitHub](https://github.com/dartsidedev/whatsapp_unilink/issues)
-* [See package on `pub.dev`](https://pub.dev/packages/whatsapp_unilink)
-* [Read the docs on `pub.dev`](https://pub.dev/documentation/whatsapp_unilink/latest/)
+* [See package on pub.dev](https://pub.dev/packages/whatsapp_unilink)
+* [Read the docs on pub.dev](https://pub.dev/documentation/whatsapp_unilink/latest/)
+
+If you enjoy using this package, a thumbs-up on [pub.dev](https://pub.dev/packages/whatsapp_unilink) would be highly appreciated! 👍💙 Let's get to 💯🙂
 
 #### About WhatsApp links
 

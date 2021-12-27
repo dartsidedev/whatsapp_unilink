@@ -7,17 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     container:
-      image:  google/dart:beta
+      image:  google/dart
     steps:
       - uses: actions/checkout@v2
       - name: Ensure idiomatic Dart source code formatting
-        run: dartfmt -w --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
 
   analyze:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     container:
-      image:  google/dart:beta
+      image:  google/dart
     steps:
       - uses: actions/checkout@v2
       - name: Get dependencies
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     container:
-      image:  google/dart:beta
+      image:  google/dart
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
@@ -39,52 +39,26 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     container:
-      image:  google/dart:beta
+      image:  google/dart
     steps:
       - uses: actions/checkout@v2
       - name: Get dependencies
         run: dart pub get
       - name: Verify example formatted correctly
         working-directory: ./example/dart
-        run: dartfmt --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
       - name: Verify example has no analysis errors
         working-directory: ./example/dart
         run: dart analyze --fatal-infos --fatal-warnings .
       - name: Verify example compiles correctly
         working-directory: ./example/dart
-        run: dart compile aot-snapshot whatsapp_unilink_example.dart
-
-  # We also have a Flutter example, that's currently not verified
-  # as part of the CI process.
-
-  publish:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    needs: [format, analyze, test-ubuntu, example-dart]
-    if: github.ref == 'refs/heads/master'
-    # Continue on error doesn't seem to work?
-    # Using || true for publishing
-    # continue-on-error: true
-    container:
-      image:  google/dart:beta
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup credentials
-        run: |
-          mkdir -p ~/.pub-cache
-          echo ${{ secrets.PUB_CREDENTIALS_JSON }} > ~/.pub-cache/credentials.json
-      - name: Publish the package to pub.dartlang.org
-        run: pub publish --force || true
-      - name: Delete credentials
-        run: rm ~/.pub-cache/credentials.json
+        run: dart compile exe whatsapp_unilink_example.dart -o whatsapp_unilink_example
 
   coverage:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    needs: publish
-    if: github.ref == 'refs/heads/master'
     container:
-      image:  google/dart:beta
+      image:  google/dart
     steps:
       - uses: actions/checkout@v1
       - name: Get the package's dependencies
@@ -98,3 +72,37 @@ jobs:
           flags: unittests
           file: coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  # We also have a Flutter example, that's currently not verified
+  # as part of the CI process.
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [format, analyze, test-ubuntu, example-dart, coverage]
+    if: github.ref == 'refs/heads/master'
+    # Continue on error doesn't seem to work?
+    # Using || true for publishing
+    # continue-on-error: true
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Dart
+        run: |
+          sudo apt-get update
+          sudo apt-get install apt-transport-https
+          sudo sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
+          sudo sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
+          sudo apt-get update
+          sudo apt-get install dart
+          export PATH="$PATH:/usr/lib/dart/bin"
+      - name: Setup credentials
+        run: |
+          mkdir -p ~/.pub-cache
+          echo ${{ secrets.PUB_CREDENTIALS_JSON }} > ~/.pub-cache/credentials.json
+      - name: Publish the package
+        run: |
+          export version=v$(grep "version: " pubspec.yaml | cut -c 10-)
+          dart pub publish --force && (git tag $version && git push origin $version && gh release create $version) || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      - name: Delete credentials
+        run: rm ~/.pub-cache/credentials.json

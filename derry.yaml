@@ -9,7 +9,7 @@ test-coverage:
 example:
   - cd example/dart && dartfmt -w --set-exit-if-changed .
   - cd example/dart && dart analyze --fatal-infos --fatal-warnings .
-  - cd example/dart && dart compile aot-snapshot whatsapp_unilink_example.dart
+  - cd example/dart && dart compile exe whatsapp_unilink_example.dart -o whatsapp_unilink_example
 publish-dry-run:
   - pub publish --dry-run
 # Verify everything
