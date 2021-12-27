@@ -1,9 +1,12 @@
+## 2.0.1+1
+
+* Small README change
+
 ## 2.0.1
 
 * Update code internally (code's behavior should not change)
 * Get rid of unnecessary src folder (the whole project is approx 50LoC)
 * Release with GitHub Actions and tag commits automatically
-* Highlight "thumbs up" in README
 * Add more thorough test cases
 
 ## 2.0.0
