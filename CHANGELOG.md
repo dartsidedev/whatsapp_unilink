@@ -1,3 +1,7 @@
+## 2.1.0
+
+* Add URI support as `asUri` method
+
 ## 2.0.1+1
 
 * Small README change

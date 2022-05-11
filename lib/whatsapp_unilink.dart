@@ -38,6 +38,9 @@ class WhatsAppUnilink {
     return sb.toString();
   }
 
+  /// Represent this as a Uri component.
+  Uri asUri() => Uri.parse('$this');
+
   /// Keep only the numbers and remove any leading zeros
   static String _formatPhoneNumber(String phoneNumber) {
     return phoneNumber
