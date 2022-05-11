@@ -68,7 +68,7 @@ void main() {
             text: 'I\'m interested in in your "Ferrari" car for sale!',
           ).asUri(),
           Uri.parse(
-            'https://wa.me/15551234567?text=I\'m%20interested%20in%20in%20your%20%22Ferrari%22%20car%20for%20sale!',
+            'https://wa.me/15551234567?text=I%27m+interested+in+in+your+%22Ferrari%22+car+for+sale%21',
           ),
         );
       });
@@ -112,7 +112,7 @@ void main() {
         expect(
           WhatsAppUnilink(text: 'I\'m interested in ur "Ferrari"!').asUri(),
           Uri.parse(
-            'https://wa.me/?text=I\'m%20interested%20in%20ur%20%22Ferrari%22!',
+            'https://wa.me?text=I%27m+interested+in+ur+%22Ferrari%22%21',
           ),
         );
       });

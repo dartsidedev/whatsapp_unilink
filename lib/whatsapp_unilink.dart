@@ -39,7 +39,15 @@ class WhatsAppUnilink {
   }
 
   /// Represent this as a Uri component.
-  Uri asUri() => Uri.parse('$this');
+  Uri asUri() {
+    final text = this.text;
+    return Uri(
+      scheme: 'https',
+      host: 'wa.me',
+      path: phoneNumber?.use(_formatPhoneNumber),
+      queryParameters: text == null ? null : {'text': text},
+    );
+  }
 
   /// Keep only the numbers and remove any leading zeros
   static String _formatPhoneNumber(String phoneNumber) {
