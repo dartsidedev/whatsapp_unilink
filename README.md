@@ -2,7 +2,7 @@
 
 > Dart package helping your app interact with WhatsApp via HTTP links (universal links). Works with Flutter.
 
-The `whatsapp_unilink` package helps you build HTTP links and provides you with an idiomatic Dart interface that:
+The `whatsapp_unilink` package helps you build HTTP links and provides you with an idiomatic Dart class that:
 
 * converts your phone number into something that WhatsApp expects ✅
 * hides the encoding and link building details from you so that you can focus on your app 🚀
@@ -17,7 +17,7 @@ The `whatsapp_unilink` package helps you build HTTP links and provides you with 
 * [See package on pub.dev](https://pub.dev/packages/whatsapp_unilink)
 * [Read the docs on pub.dev](https://pub.dev/documentation/whatsapp_unilink/latest/)
 
-**If you enjoy using this package, a thumbs-up on [pub.dev](https://pub.dev/packages/whatsapp_unilink) would be highly appreciated! 👍💙 Let's get to 💯 likes 🚀**
+**If you enjoy using this package, a thumbs-up on [pub.dev](https://pub.dev/packages/whatsapp_unilink) would be highly appreciated! 👍💙 Let's get to 500 likes 🚀**
 
 #### About WhatsApp links
 
@@ -44,6 +44,7 @@ You may want to launch the WhatsApp app on your user's phone and make life easie
 
 ```dart
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
+
 // For Flutter applications, you'll most likely want to use
 // the url_launcher package.
 import 'package:url_launcher/url_launcher.dart';

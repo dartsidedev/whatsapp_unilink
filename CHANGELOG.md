@@ -1,3 +1,9 @@
+## 2.0.2
+
+Fix static analysis info
+
+> lib/whatsapp_unilink.dart:50:6 INFO: This function has a nullable return type of 'T?', but ends without returning a value.
+
 ## 2.0.1+1
 
 * Small README change

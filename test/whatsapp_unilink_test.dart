@@ -6,7 +6,7 @@ import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 // https://faq.whatsapp.com/en/iphone/23559013
 
 void main() {
-  group('$WhatsAppUnilink', () {
+  group(WhatsAppUnilink, () {
     group('toString()', () {
       test('phone number and text are both set', () {
         expect(
