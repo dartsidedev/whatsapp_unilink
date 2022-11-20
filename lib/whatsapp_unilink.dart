@@ -24,18 +24,25 @@ class WhatsAppUnilink {
   ///
   /// WhatsApp will include your message in [text], and it will automatically
   /// appear in the text field of a chat.
-  ///
-  /// [text] is encoded using percent-encoding to make it safe for literal use
-  /// as a URI component.
   final String? text;
 
-  /// Create a WhatsApp URL link.
+  /// Create a WhatsApp URL string.
   @override
   String toString() {
-    final sb = StringBuffer('https://wa.me/');
-    if (phoneNumber != null) sb.write(_formatPhoneNumber(phoneNumber!));
-    if (text != null) sb.write('?text=${Uri.encodeComponent(text!)}');
+    final sb = StringBuffer('https://wa.me');
+    if (phoneNumber != null) sb.write('/${_formatPhoneNumber(phoneNumber!)}');
+    if (text != null) sb.write('?text=${Uri.encodeQueryComponent(text!)}');
     return sb.toString();
+  }
+
+  /// Create a WhatsApp URL as [Uri].
+  Uri asUri() {
+    return Uri(
+      scheme: 'https',
+      host: 'wa.me',
+      path: phoneNumber != null ? _formatPhoneNumber(phoneNumber!) : null,
+      queryParameters: text != null ? {'text': text!} : null,
+    );
   }
 
   /// Keep only the numbers and remove any leading zeros
