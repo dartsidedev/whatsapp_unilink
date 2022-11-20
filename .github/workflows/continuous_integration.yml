@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     container:
-      image:  google/dart
+      image: dart
     steps:
       - uses: actions/checkout@v2
       - name: Ensure idiomatic Dart source code formatting
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     container:
-      image:  google/dart
+      image: dart
     steps:
       - uses: actions/checkout@v2
       - name: Get dependencies
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     container:
-      image:  google/dart
+      image: dart
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     container:
-      image:  google/dart
+      image: dart
     steps:
       - uses: actions/checkout@v2
       - name: Get dependencies
@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     container:
-      image:  google/dart
+      image: dart
     steps:
       - uses: actions/checkout@v1
       - name: Get the package's dependencies
