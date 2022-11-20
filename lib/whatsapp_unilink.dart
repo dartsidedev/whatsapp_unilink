@@ -33,20 +33,13 @@ class WhatsAppUnilink {
   @override
   String toString() {
     final sb = StringBuffer('https://wa.me/');
-    phoneNumber.use(_formatPhoneNumber).use(sb.write);
-    text.use(Uri.encodeComponent).use((encoded) => sb.write('?text=$encoded'));
+    if (phoneNumber != null) sb.write(_formatPhoneNumber(phoneNumber!));
+    if (text != null) sb.write('?text=${Uri.encodeComponent(text!)}');
     return sb.toString();
   }
 
   /// Keep only the numbers and remove any leading zeros
   static String _formatPhoneNumber(String s) {
     return s.replaceAll(RegExp(r'\D'), '').replaceAll(RegExp('^0+'), '');
-  }
-}
-
-extension on String? {
-  T? use<T>(T Function(String s) f) {
-    if (this != null) return f(this!);
-    return null;
   }
 }
